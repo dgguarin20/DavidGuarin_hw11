@@ -29,15 +29,15 @@ int main()
   //cin >> h;
 
   ma = 10;
-  x0 = 10;
-  v0 = 10;
-  h = 0.5;
+  x0 = 3;
+  v0 = 0;
+  h = 0.01;
   
   float x1;
   float v1;
   // se obtiene el siguiente valor con la suma de su delta
-  x1 = x0 +v0;
-  v1 = v0 + (-(G*M)/(x0*x0));
+  x1 = x0 +v0*h;
+  v1 = v0 + (-(G*M)/(x0*x0))*h;
   float x1mas;
   float v1mas;
   int c;
@@ -50,12 +50,14 @@ int main()
       t = t+h;
       //se encuentra el x siguiente
       x1mas = funcdx(v1,h,x0);
-      x0 = x1;
-      x1 = x1mas;
+
       //despues el v siguiente
       v1mas = funcdv(G,M,x1,h,v0);
+      
       v0 = v1;
       v1 = v1mas;
+      x0 = x1;
+      x1 = x1mas;
       // se imprimen
       cout<< x0 << " " << v0 << " " << t;
       cout << "\n";
@@ -68,7 +70,7 @@ int main()
 //primera funcion
 float funcdv(int G, int M, float x, float h, float Vmenos1)
 {
-  return -((G*M*2*h)/(x*x))+Vmenos1;
+  return -1*((G*M*2.*h)/(x*x))+Vmenos1;
 }
 //segunda funcion
 float funcdx(float V, float h, float xmenos1)
